@@ -2,6 +2,7 @@ import './style.css'
 import { searchBooks } from './utils/searchBooks.ts'
 import { getBooks } from './services/getBooks.ts';
 import { createBooksCards } from './components/createBookCards.ts';
+import { booksLoader } from './utils/booksLoader.ts';
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div class="flex flex-col justify-center items-center gap-5 p-10">
@@ -31,6 +32,7 @@ searchBooks(booksContainer,search);
 
 // Evento para filtrar libros que sean ebooks
 ebookCheckbox.addEventListener("change",()=>{
+  booksLoader(booksContainer);
   if (ebookCheckbox.checked){
     getBooks(search.value).then(books => {
       const bookFilter = books.items.filter(book => book.saleInfo.isEbook === true);
